@@ -1,0 +1,31 @@
+# Dependências
+node_modules/
+
+# Build de produção
+dist/
+
+# Variáveis de ambiente (podem conter segredos)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Notas de entrevista (não deve ir para o repositório público)
+NOTAS_ENTREVISTA.md

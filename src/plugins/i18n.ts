@@ -1,0 +1,167 @@
+import { createI18n } from 'vue-i18n'
+
+const messages = {
+    en: {
+        app: {
+            title: 'Industrial Production',
+            nav: {
+                rawMaterials: 'Raw Materials',
+                products: 'Products',
+                productionPlan: 'Production Plan',
+            }
+        },
+        common: {
+            actions: 'Actions',
+            cancel: 'Cancel',
+            save: 'Save',
+            delete: 'Delete',
+            confirmDeletion: 'Confirm Deletion',
+            loading: 'Loading...',
+            noData: 'No data registered.',
+            requiredField: 'Required field.',
+            addItem: 'Add Item',
+        },
+        rawMaterial: {
+            title: 'Raw Materials',
+            new: 'New Raw Material',
+            edit: 'Edit Raw Material',
+            code: 'Code',
+            name: 'Name',
+            stockQty: 'Stock Quantity',
+            unit: 'Unit of Measure',
+            deleteMsg: 'Are you sure you want to delete the raw material',
+            deleteSuccess: 'Raw material deleted successfully.',
+            saveError: 'Error saving raw material.',
+            deleteError: 'Error deleting raw material.',
+            loadError: 'Error loading raw materials.',
+        },
+        product: {
+            title: 'Products',
+            new: 'New Product',
+            edit: 'Edit Product',
+            code: 'Code',
+            name: 'Name',
+            price: 'Selling Price ($)',
+            composition: 'Composition (Raw Materials)',
+            compositionCount: '{count} item(s)',
+            addCompositionItem: 'Add at least one raw material to the product\'s composition.',
+            rawMaterial: 'Raw Material',
+            qty: 'Quantity',
+            deleteMsg: 'Are you sure you want to delete the product',
+            deleteSuccess: 'Product deleted successfully.',
+            saveError: 'Error saving product.',
+            deleteError: 'Error deleting product.',
+            loadError: 'Error loading products.',
+        },
+        productionPlan: {
+            title: 'Production Plan',
+            calculateBtn: 'Calculate Optimal Plan',
+            emptyTitle: 'Click "Calculate Optimal Plan" to generate the optimized production suggestion.',
+            emptySubtitle: 'The algorithm will analyze the current raw materials stock and suggest which products to manufacture to achieve the highest total sales value.',
+            totalSalesValue: 'Total Sales Value',
+            totalQtyProduced: 'Total Quantity Produced',
+            suggestedItems: 'Suggested Items for Production',
+            unitPrice: 'Unit Price',
+            totalValue: 'Total Value',
+            suggestedQty: 'Suggested Qty',
+            rawMaterialConsumption: 'Raw Material Consumption',
+            consumedQty: 'Consumed Qty',
+            rawMaterialBalance: 'Raw Material Balance',
+            initialQty: 'Initial Qty',
+            balance: 'Balance',
+            calcError: 'Error calculating production plan.'
+        },
+        units: {
+            unidade: 'Unity',
+            grama: 'Gram',
+            quilograma: 'Kilogram',
+            litro: 'Liter',
+            mililitro: 'Milliliter',
+        }
+    },
+    pt: {
+        app: {
+            title: 'Produção Industrial',
+            nav: {
+                rawMaterials: 'Matérias-Primas',
+                products: 'Produtos',
+                productionPlan: 'Plano de Produção',
+            }
+        },
+        common: {
+            actions: 'Ações',
+            cancel: 'Cancelar',
+            save: 'Salvar',
+            delete: 'Excluir',
+            confirmDeletion: 'Confirmar Exclusão',
+            loading: 'Carregando...',
+            noData: 'Nenhum dado registrado.',
+            requiredField: 'Campo obrigatório.',
+            addItem: 'Adicionar Item',
+        },
+        rawMaterial: {
+            title: 'Matérias-Primas',
+            new: 'Nova Matéria-Prima',
+            edit: 'Editar Matéria-Prima',
+            code: 'Código',
+            name: 'Nome',
+            stockQty: 'Quantidade em Estoque',
+            unit: 'Unidade de Medida',
+            deleteMsg: 'Tem certeza que deseja excluir a matéria-prima',
+            deleteSuccess: 'Matéria-prima excluída com sucesso.',
+            saveError: 'Erro ao salvar matéria-prima.',
+            deleteError: 'Erro ao excluir matéria-prima.',
+            loadError: 'Erro ao carregar matérias-primas.',
+        },
+        product: {
+            title: 'Produtos',
+            new: 'Novo Produto',
+            edit: 'Editar Produto',
+            code: 'Código',
+            name: 'Nome',
+            price: 'Valor de Venda (R$)',
+            composition: 'Composição (Matérias-Primas)',
+            compositionCount: '{count} item(ns)',
+            addCompositionItem: 'Adicione pelo menos uma matéria-prima à composição do produto.',
+            rawMaterial: 'Matéria-Prima',
+            qty: 'Quantidade',
+            deleteMsg: 'Tem certeza que deseja excluir o produto',
+            deleteSuccess: 'Produto excluído com sucesso.',
+            saveError: 'Erro ao salvar produto.',
+            deleteError: 'Erro ao excluir produto.',
+            loadError: 'Erro ao carregar produtos.',
+        },
+        productionPlan: {
+            title: 'Plano de Produção',
+            calculateBtn: 'Calcular Melhor Plano',
+            emptyTitle: 'Clique em "Calcular Melhor Plano" para gerar a sugestão de produção.',
+            emptySubtitle: 'O algoritmo analisará o estoque atual e sugerirá quais produtos fabricar para obter o maior valor de venda possível.',
+            totalSalesValue: 'Valor Total de Venda',
+            totalQtyProduced: 'Quantidade Total Produzida',
+            suggestedItems: 'Itens Sugeridos para Produção',
+            unitPrice: 'Valor Unitário',
+            totalValue: 'Valor Total',
+            suggestedQty: 'Qtd Sugerida',
+            rawMaterialConsumption: 'Consumo de Matérias-Primas',
+            consumedQty: 'Qtd Consumida',
+            rawMaterialBalance: 'Saldo de Matérias-Primas',
+            initialQty: 'Qtd Inicial',
+            balance: 'Saldo',
+            calcError: 'Erro ao calcular plano de produção.'
+        },
+        units: {
+            unidade: 'Unidade',
+            grama: 'Grama',
+            quilograma: 'Quilograma',
+            litro: 'Litro',
+            mililitro: 'Mililitro',
+        }
+    }
+}
+
+export const i18n = createI18n({
+    legacy: false,
+    locale: 'en', // UI em inglês conforme pedido
+    fallbackLocale: 'en',
+    messages
+})
