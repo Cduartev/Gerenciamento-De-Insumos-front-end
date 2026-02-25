@@ -61,10 +61,6 @@
 </template>
 
 <script lang="ts" setup>
-/**
- * Componente que exibe a listagem de Matérias-Primas.
- * Responsável por gerenciar os dados em uma tabela interativa com ações de CRUD.
- */
 import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { MateriaPrima } from '@/types'
@@ -102,9 +98,6 @@ function mostrarMensagem(mensagem: string, cor = 'success') {
   snackbar.value = { visivel: true, mensagem, cor }
 }
 
-/**
- * Busca a lista de matérias-primas no back-end e atualiza o estado da tabela.
- */
 async function carregarDados() {
   carregando.value = true
   try {

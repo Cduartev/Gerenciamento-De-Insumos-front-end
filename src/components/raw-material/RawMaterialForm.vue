@@ -60,10 +60,6 @@
 </template>
 
 <script lang="ts" setup>
-/**
- * Componente de Formulário de Matéria-Prima.
- * Permite gerenciar a criação e edição das matérias-primas (estoque inicial, unidade de medida, etc).
- */
 import { ref, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { MateriaPrima } from '@/types'
@@ -116,7 +112,6 @@ watch(() => props.modelValue, (isOpen) => {
     } else {
       formulario.value = formularioInicial()
     }
-    // Removemos os erros de validação residuais ao abrir
     if (formRef.value) {
       formRef.value.resetValidation()
     }
@@ -127,10 +122,6 @@ function fecharDialog() {
   emit('update:modelValue', false)
 }
 
-/**
- * Aciona o provedor de serviço para salvar as informações de matéria-prima.
- * Diferencia entre a criação de um novo registro e a edição de um existente.
- */
 async function salvar() {
   const { valid } = await formRef.value.validate()
   if (!valid) return

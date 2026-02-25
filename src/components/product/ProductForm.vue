@@ -110,10 +110,6 @@
 </template>
 
 <script lang="ts" setup>
-/**
- * Componente de Formulário de Produto.
- * Permite criar ou editar um produto, incluindo sua composição de matérias-primas.
- */
 import { ref, watch, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Produto, MateriaPrima, ItemComposicaoProduto } from '@/types'
@@ -177,7 +173,6 @@ watch(() => props.modelValue, (isOpen) => {
     } else {
       formulario.value = formularioInicial()
     }
-    // Removemos os erros de validação residuais ao abrir
     if (formRef.value) {
       formRef.value.resetValidation()
     }
@@ -199,10 +194,6 @@ function removerItem(index: number) {
   formulario.value.compositionItems.splice(index, 1)
 }
 
-/**
- * Valida a composição do produto, garantindo que contenha itens válidos
- * e que não haja matérias-primas duplicadas.
- */
 function validarComposicao(): boolean {
   erroComposicao.value = ''
   if (formulario.value.compositionItems.length === 0) {
@@ -225,9 +216,6 @@ function validarComposicao(): boolean {
   return true
 }
 
-/**
- * Salva os dados do formulário chamando o serviço apropriado (criar ou atualizar).
- */
 async function salvar() {
   const { valid } = await formRef.value.validate()
   if (!valid || !validarComposicao()) return

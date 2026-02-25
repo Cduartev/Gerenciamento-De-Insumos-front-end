@@ -122,10 +122,6 @@
 </template>
 
 <script lang="ts" setup>
-/**
- * Componente para exibição e cálculo do Plano Ótimo de Produção.
- * Se comunica com o algoritmo do back-end para determinar a rentabilidade máxima com o estoque atual.
- */
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { SugestaoPlanoProducaoResponse } from '@/types'
@@ -170,9 +166,6 @@ function formatarNumero(valor: number): string {
   return Number(valor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 })
 }
 
-/**
- * Dispara o cálculo de sugestão do plano de produção e reflete o resultado em tela.
- */
 async function calcularPlano() {
   isCalculando.value = true
   erro.value = ''
