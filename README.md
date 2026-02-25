@@ -1,6 +1,6 @@
-# Produção Industrial — Front-end
+# Teste Prático Full Stack - P&D
 
-Front-end em **Vue 3** + **Vuetify 4** + **TypeScript** para o sistema de gerenciamento de insumos e produção industrial.
+Front-end em **Vue 3** + **Vuetify 4**.
 
 ## Pré-requisitos
 
@@ -12,10 +12,10 @@ Front-end em **Vue 3** + **Vuetify 4** + **TypeScript** para o sistema de gerenc
 
 ```bash
 # 1. Instalar dependências
-pnpm install
+pnpm install ou pnpm i
 
 # 2. Iniciar o servidor de desenvolvimento
-pnpm dev
+pnpm run dev ou pnpm dev
 ```
 
 O front-end será iniciado em **http://localhost:3000**.
