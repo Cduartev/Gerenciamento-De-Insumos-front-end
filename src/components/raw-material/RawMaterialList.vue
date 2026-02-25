@@ -16,12 +16,12 @@
         :no-data-text="t('common.noData')"
         hover
       >
-        <template #item.quantidadeEstoque="{ item }">
-          {{ formatarNumero(item.quantidadeEstoque) }}
+        <template #item.stockQuantity="{ item }">
+          {{ formatarNumero(item.stockQuantity) }}
         </template>
 
-        <template #item.unidadeMedida="{ item }">
-          {{ t('units.' + (item.unidadeMedida || '').toLowerCase()) || item.unidadeMedida }}
+        <template #item.unitOfMeasurement="{ item }">
+          {{ t('units.' + (item.unitOfMeasurement || '').toLowerCase()) || item.unitOfMeasurement }}
         </template>
 
         <template #item.actions="{ item }">
@@ -42,7 +42,7 @@
         <v-card-title>{{ t('common.confirmDeletion') }}</v-card-title>
         <v-card-text>
           {{ t('rawMaterial.deleteMsg') }}
-          <strong>{{ materiaPrimaParaExcluir?.nome }}</strong>?
+          <strong>{{ materiaPrimaParaExcluir?.name }}</strong>?
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -87,10 +87,10 @@ const materiaPrimaParaExcluir = ref<MateriaPrima | null>(null)
 const snackbar = ref({ visivel: false, mensagem: '', cor: 'success' })
 
 const colunas = computed(() => [
-  { title: t('rawMaterial.code'), key: 'codigo', sortable: true },
-  { title: t('rawMaterial.name'), key: 'nome', sortable: true },
-  { title: t('rawMaterial.stockQty'), key: 'quantidadeEstoque', sortable: true },
-  { title: t('rawMaterial.unit'), key: 'unidadeMedida', sortable: false },
+  { title: t('rawMaterial.code'), key: 'code', sortable: true },
+  { title: t('rawMaterial.name'), key: 'name', sortable: true },
+  { title: t('rawMaterial.stockQty'), key: 'stockQuantity', sortable: true },
+  { title: t('rawMaterial.unit'), key: 'unitOfMeasurement', sortable: false },
   { title: t('common.actions'), key: 'actions', sortable: false, align: 'center' as const },
 ])
 

@@ -1,87 +1,87 @@
 export interface MateriaPrima {
   id: number
-  codigo: string
-  nome: string
-  quantidadeEstoque: number
-  unidadeMedida: string
+  code: string
+  name: string
+  stockQuantity: number
+  unitOfMeasurement: string
 }
 
 export interface CriarMateriaPrimaRequest {
-  codigo: string
-  nome: string
-  quantidadeEstoque: number
-  unidadeMedida: string
+  code: string
+  name: string
+  stockQuantity: number
+  unitOfMeasurement: string
 }
 
 export interface AtualizarMateriaPrimaRequest {
-  codigo: string
-  nome: string
-  quantidadeEstoque: number
-  unidadeMedida: string
+  code: string
+  name: string
+  stockQuantity: number
+  unitOfMeasurement: string
 }
 
 export interface ItemComposicaoProduto {
   id?: number
-  materiaPrimaId: number
-  codigoMateriaPrima?: string
-  nomeMateriaPrima?: string
-  unidadeMedida?: string
-  quantidadeNecessaria: number
+  rawMaterialId: number
+  codeRawMaterial?: string
+  nameRawMaterial?: string
+  unitOfMeasurement?: string
+  requiredQuantity: number
 }
 
 export interface Produto {
   id: number
-  codigo: string
-  nome: string
-  valor: number
-  itensComposicao: ItemComposicaoProduto[]
+  code: string
+  name: string
+  price: number
+  compositionItems: ItemComposicaoProduto[]
 }
 
 export interface CriarProdutoRequest {
-  codigo: string
-  nome: string
-  valor: number
-  itensComposicao: { materiaPrimaId: number; quantidadeNecessaria: number }[]
+  code: string
+  name: string
+  price: number
+  compositionItems: { rawMaterialId: number; requiredQuantity: number }[]
 }
 
 export interface AtualizarProdutoRequest {
-  codigo: string
-  nome: string
-  valor: number
-  itensComposicao: { materiaPrimaId: number; quantidadeNecessaria: number }[]
+  code: string
+  name: string
+  price: number
+  compositionItems: { rawMaterialId: number; requiredQuantity: number }[]
 }
 
 export interface ItemSugestaoProducao {
-  produtoId: number
-  codigoProduto: string
-  nomeProduto: string
-  quantidadeSugerida: number
-  valorUnitario: number
-  valorTotalItem: number
+  productId: number
+  codeProduct: string
+  nameProduct: string
+  suggestedQuantity: number
+  priceUnitario: number
+  totalItemValue: number
 }
 
 export interface ConsumoMateriaPrima {
-  materiaPrimaId: number
-  codigoMateriaPrima: string
-  nomeMateriaPrima: string
-  unidadeMedida: string
-  quantidadeConsumida: number
+  rawMaterialId: number
+  codeRawMaterial: string
+  nameRawMaterial: string
+  unitOfMeasurement: string
+  consumedQuantity: number
 }
 
 export interface SaldoMateriaPrima {
-  materiaPrimaId: number
-  codigoMateriaPrima: string
-  nomeMateriaPrima: string
-  unidadeMedida: string
-  quantidadeInicial: number
-  quantidadeConsumida: number
-  quantidadeSaldo: number
+  rawMaterialId: number
+  codeRawMaterial: string
+  nameRawMaterial: string
+  unitOfMeasurement: string
+  initialQuantity: number
+  consumedQuantity: number
+  balanceQuantity: number
 }
 
 export interface SugestaoPlanoProducaoResponse {
-  valorTotalVenda: number
-  quantidadeTotalProduzida: number
-  itensSugeridos: ItemSugestaoProducao[]
-  consumosMateriasPrimas: ConsumoMateriaPrima[]
-  saldosMateriasPrimas: SaldoMateriaPrima[]
+  totalSalesValue: number
+  totalProducedQuantity: number
+  suggestedItems: ItemSugestaoProducao[]
+  rawMaterialConsumptions: ConsumoMateriaPrima[]
+  rawMaterialBalances: SaldoMateriaPrima[]
 }

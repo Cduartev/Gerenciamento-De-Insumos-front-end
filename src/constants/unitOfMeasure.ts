@@ -1,9 +1,9 @@
 export const UNIDADES_MEDIDA = [
-  { title: 'Unity', value: 'UNIDADE' },
-  { title: 'Gram', value: 'GRAMA' },
-  { title: 'Kilogram', value: 'QUILOGRAMA' },
-  { title: 'Liter', value: 'LITRO' },
-  { title: 'Milliliter', value: 'MILILITRO' },
+  { title: 'Unity', value: 'UNIT' },
+  { title: 'Gram', value: 'GRAM' },
+  { title: 'Kilogram', value: 'KILOGRAM' },
+  { title: 'Liter', value: 'LITER' },
+  { title: 'Milliliter', value: 'MILLILITER' },
 ]
 
 export function getUnidadeMedidaTitle(enumValue: string): string {

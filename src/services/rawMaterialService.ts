@@ -6,7 +6,7 @@ import type { MateriaPrima, CriarMateriaPrimaRequest, AtualizarMateriaPrimaReque
  * @returns Uma Promise com um array de objetos MateriaPrima.
  */
 export async function listarTodas(): Promise<MateriaPrima[]> {
-    const { data } = await api.get<MateriaPrima[]>('/materias-primas')
+    const { data } = await api.get<MateriaPrima[]>('/raw-materials')
     return data
 }
 
@@ -16,7 +16,7 @@ export async function listarTodas(): Promise<MateriaPrima[]> {
  * @returns Uma Promise com os dados da MateriaPrima.
  */
 export async function buscarPorId(id: number): Promise<MateriaPrima> {
-    const { data } = await api.get<MateriaPrima>(`/materias-primas/${id}`)
+    const { data } = await api.get<MateriaPrima>(`/raw-materials/${id}`)
     return data
 }
 
@@ -26,7 +26,7 @@ export async function buscarPorId(id: number): Promise<MateriaPrima> {
  * @returns Uma Promise com a matéria-prima criada.
  */
 export async function criar(request: CriarMateriaPrimaRequest): Promise<MateriaPrima> {
-    const { data } = await api.post<MateriaPrima>('/materias-primas', request)
+    const { data } = await api.post<MateriaPrima>('/raw-materials', request)
     return data
 }
 
@@ -37,7 +37,7 @@ export async function criar(request: CriarMateriaPrimaRequest): Promise<MateriaP
  * @returns Uma Promise contendo os dados atualizados.
  */
 export async function atualizar(id: number, request: AtualizarMateriaPrimaRequest): Promise<MateriaPrima> {
-    const { data } = await api.put<MateriaPrima>(`/materias-primas/${id}`, request)
+    const { data } = await api.put<MateriaPrima>(`/raw-materials/${id}`, request)
     return data
 }
 
@@ -46,5 +46,5 @@ export async function atualizar(id: number, request: AtualizarMateriaPrimaReques
  * @param id - ID numérico da matéria-prima a excluir.
  */
 export async function remover(id: number): Promise<void> {
-    await api.delete(`/materias-primas/${id}`)
+    await api.delete(`/raw-materials/${id}`)
 }

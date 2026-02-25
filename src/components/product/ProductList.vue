@@ -16,12 +16,12 @@
         :no-data-text="t('common.noData')"
         hover
       >
-        <template #item.valor="{ item }">
-          $ {{ formatarMoeda(item.valor) }}
+        <template #item.price="{ item }">
+          $ {{ formatarMoeda(item.price) }}
         </template>
 
         <template #item.composicao="{ item }">
-          {{ t('product.compositionCount', { count: item.itensComposicao?.length || 0 }) }}
+          {{ t('product.compositionCount', { count: item.compositionItems?.length || 0 }) }}
         </template>
 
         <template #item.actions="{ item }">
@@ -42,7 +42,7 @@
         <v-card-title>{{ t('common.confirmDeletion') }}</v-card-title>
         <v-card-text>
           {{ t('product.deleteMsg') }}
-          <strong>{{ produtoParaExcluir?.nome }}</strong>?
+          <strong>{{ produtoParaExcluir?.name }}</strong>?
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -87,9 +87,9 @@ const produtoParaExcluir = ref<Produto | null>(null)
 const snackbar = ref({ visivel: false, mensagem: '', cor: 'success' })
 
 const colunas = computed(() => [
-  { title: t('product.code'), key: 'codigo', sortable: true },
-  { title: t('product.name'), key: 'nome', sortable: true },
-  { title: t('product.price'), key: 'valor', sortable: true },
+  { title: t('product.code'), key: 'code', sortable: true },
+  { title: t('product.name'), key: 'name', sortable: true },
+  { title: t('product.price'), key: 'price', sortable: true },
   { title: t('product.composition'), key: 'composicao', sortable: false },
   { title: t('common.actions'), key: 'actions', sortable: false, align: 'center' as const },
 ])

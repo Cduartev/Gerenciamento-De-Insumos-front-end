@@ -8,21 +8,21 @@
       <v-card-text>
         <v-form ref="formRef" @submit.prevent="salvar">
           <v-text-field
-            v-model="formulario.codigo"
+            v-model="formulario.code"
             :label="t('rawMaterial.code')"
             :rules="[regras.obrigatorio, regras.maxCodigo]"
             counter="50"
             class="mb-2"
           />
           <v-text-field
-            v-model="formulario.nome"
+            v-model="formulario.name"
             :label="t('rawMaterial.name')"
             :rules="[regras.obrigatorio, regras.maxNome]"
             counter="120"
             class="mb-2"
           />
           <v-text-field
-            v-model.number="formulario.quantidadeEstoque"
+            v-model.number="formulario.stockQuantity"
             :label="t('rawMaterial.stockQty')"
             type="number"
             min="0"
@@ -31,7 +31,7 @@
             class="mb-2"
           />
           <v-select
-            v-model="formulario.unidadeMedida"
+            v-model="formulario.unitOfMeasurement"
             :label="t('rawMaterial.unit')"
             :items="UNIDADES_MEDIDA"
             item-title="title"
@@ -89,10 +89,10 @@ const salvando = ref(false)
 const isEditando = computed(() => !!props.materiaPrima)
 
 const formularioInicial = () => ({
-  codigo: '',
-  nome: '',
-  quantidadeEstoque: 0,
-  unidadeMedida: '',
+  code: '',
+  name: '',
+  stockQuantity: 0,
+  unitOfMeasurement: '',
 })
 
 const formulario = ref(formularioInicial())
@@ -108,10 +108,10 @@ watch(() => props.modelValue, (isOpen) => {
   if (isOpen) {
     if (props.materiaPrima) {
       formulario.value = {
-        codigo: props.materiaPrima.codigo,
-        nome: props.materiaPrima.nome,
-        quantidadeEstoque: props.materiaPrima.quantidadeEstoque,
-        unidadeMedida: props.materiaPrima.unidadeMedida,
+        code: props.materiaPrima.code,
+        name: props.materiaPrima.name,
+        stockQuantity: props.materiaPrima.stockQuantity,
+        unitOfMeasurement: props.materiaPrima.unitOfMeasurement,
       }
     } else {
       formulario.value = formularioInicial()

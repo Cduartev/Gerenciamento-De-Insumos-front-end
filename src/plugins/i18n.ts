@@ -72,11 +72,11 @@ const messages = {
             calcError: 'Error calculating production plan.'
         },
         units: {
-            unidade: 'Unity',
-            grama: 'Gram',
-            quilograma: 'Kilogram',
-            litro: 'Liter',
-            mililitro: 'Milliliter',
+            unit: 'Unity',
+            gram: 'Gram',
+            kilogram: 'Kilogram',
+            liter: 'Liter',
+            milliliter: 'Milliliter',
         }
     },
     pt: {
@@ -150,11 +150,11 @@ const messages = {
             calcError: 'Erro ao calcular plano de produção.'
         },
         units: {
-            unidade: 'Unidade',
-            grama: 'Grama',
-            quilograma: 'Quilograma',
-            litro: 'Litro',
-            mililitro: 'Mililitro',
+            unit: 'Unidade',
+            gram: 'Grama',
+            kilogram: 'Quilograma',
+            liter: 'Litro',
+            milliliter: 'Mililitro',
         }
     }
 }

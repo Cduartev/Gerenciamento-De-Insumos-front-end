@@ -10,7 +10,7 @@
           <v-row>
             <v-col cols="12" sm="4">
               <v-text-field
-                v-model="formulario.codigo"
+                v-model="formulario.code"
                 :label="t('product.code')"
                 :rules="[regras.obrigatorio, regras.maxCodigo]"
                 counter="50"
@@ -18,7 +18,7 @@
             </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
-                v-model="formulario.nome"
+                v-model="formulario.name"
                 :label="t('product.name')"
                 :rules="[regras.obrigatorio, regras.maxNome]"
                 counter="120"
@@ -26,7 +26,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-text-field
-                v-model.number="formulario.valor"
+                v-model.number="formulario.price"
                 :label="t('product.price')"
                 type="number"
                 min="0"
@@ -60,12 +60,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in formulario.itensComposicao" :key="index">
+              <tr v-for="(item, index) in formulario.compositionItems" :key="index">
                 <td class="pt-2">
                   <v-select
-                    v-model="item.materiaPrimaId"
+                    v-model="item.rawMaterialId"
                     :items="materiasPrimas"
-                    item-title="nome"
+                    item-title="name"
                     item-value="id"
                     density="compact"
                     variant="outlined"
@@ -75,7 +75,7 @@
                 </td>
                 <td class="pt-2">
                   <v-text-field
-                    v-model.number="item.quantidadeNecessaria"
+                    v-model.number="item.requiredQuantity"
                     type="number"
                     min="0"
                     step="0.01"
@@ -88,7 +88,7 @@
                   <v-btn icon="mdi-delete" variant="text" size="small" color="error" @click="removerItem(index)" />
                 </td>
               </tr>
-              <tr v-if="formulario.itensComposicao.length === 0">
+              <tr v-if="formulario.compositionItems.length === 0">
                 <td colspan="3" class="text-center text-body-2 text-grey pa-4">
                   {{ t('product.addCompositionItem') }}
                 </td>
@@ -141,10 +141,10 @@ const erroComposicao = ref('')
 const isEditando = computed(() => !!props.produto)
 
 const formularioInicial = () => ({
-  codigo: '',
-  nome: '',
-  valor: 0,
-  itensComposicao: [] as ItemComposicaoProduto[],
+  code: '',
+  name: '',
+  price: 0,
+  compositionItems: [] as ItemComposicaoProduto[],
 })
 
 const formulario = ref(formularioInicial())
@@ -169,10 +169,10 @@ watch(() => props.modelValue, (isOpen) => {
     erroComposicao.value = ''
     if (props.produto) {
       formulario.value = {
-        codigo: props.produto.codigo,
-        nome: props.produto.nome,
-        valor: props.produto.valor,
-        itensComposicao: props.produto.itensComposicao.map(item => ({ ...item })),
+        code: props.produto.code,
+        name: props.produto.name,
+        price: props.produto.price,
+        compositionItems: props.produto.compositionItems.map(item => ({ ...item })),
       }
     } else {
       formulario.value = formularioInicial()
@@ -189,14 +189,14 @@ function fecharDialog() {
 }
 
 function adicionarItem() {
-  formulario.value.itensComposicao.push({
-    materiaPrimaId: materiasPrimas.value[0]?.id || 0,
-    quantidadeNecessaria: 1,
+  formulario.value.compositionItems.push({
+    rawMaterialId: materiasPrimas.value[0]?.id || 0,
+    requiredQuantity: 1,
   })
 }
 
 function removerItem(index: number) {
-  formulario.value.itensComposicao.splice(index, 1)
+  formulario.value.compositionItems.splice(index, 1)
 }
 
 /**
@@ -205,22 +205,22 @@ function removerItem(index: number) {
  */
 function validarComposicao(): boolean {
   erroComposicao.value = ''
-  if (formulario.value.itensComposicao.length === 0) {
+  if (formulario.value.compositionItems.length === 0) {
     erroComposicao.value = t('product.addCompositionItem')
     return false
   }
 
   const matPrimasSelecionadas = new Set()
-  for (const item of formulario.value.itensComposicao) {
-    if (!item.materiaPrimaId || item.quantidadeNecessaria <= 0) {
+  for (const item of formulario.value.compositionItems) {
+    if (!item.rawMaterialId || item.requiredQuantity <= 0) {
       erroComposicao.value = 'All composition items must have a raw material and quantity greater than 0.'
       return false
     }
-    if (matPrimasSelecionadas.has(item.materiaPrimaId)) {
+    if (matPrimasSelecionadas.has(item.rawMaterialId)) {
       erroComposicao.value = 'Duplicate raw materials are not allowed in the composition.'
       return false
     }
-    matPrimasSelecionadas.add(item.materiaPrimaId)
+    matPrimasSelecionadas.add(item.rawMaterialId)
   }
   return true
 }
@@ -236,9 +236,9 @@ async function salvar() {
   try {
     const payload = {
       ...formulario.value,
-      itensComposicao: formulario.value.itensComposicao.map(i => ({
-        materiaPrimaId: i.materiaPrimaId,
-        quantidadeNecessaria: i.quantidadeNecessaria
+      compositionItems: formulario.value.compositionItems.map(i => ({
+        rawMaterialId: i.rawMaterialId,
+        requiredQuantity: i.requiredQuantity
       }))
     }
 

@@ -7,6 +7,6 @@ import type { SugestaoPlanoProducaoResponse } from '@/types'
  * @returns Uma Promise contendo o plano de produção com o lucro máximo e o detalhamento da produção.
  */
 export async function sugerirPlanoOtimo(): Promise<SugestaoPlanoProducaoResponse> {
-    const { data } = await api.post<SugestaoPlanoProducaoResponse>('/planos-producao/sugerir')
+    const { data } = await api.post<SugestaoPlanoProducaoResponse>('/plans-production/suggest')
     return data
 }

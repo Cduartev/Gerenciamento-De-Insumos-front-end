@@ -6,7 +6,7 @@ import type { Produto, CriarProdutoRequest, AtualizarProdutoRequest } from '@/ty
  * @returns Uma Promise com um array de objetos Produto.
  */
 export async function listarTodos(): Promise<Produto[]> {
-    const { data } = await api.get<Produto[]>('/produtos')
+    const { data } = await api.get<Produto[]>('/products')
     return data
 }
 
@@ -16,7 +16,7 @@ export async function listarTodos(): Promise<Produto[]> {
  * @returns Uma Promise com os dados do Produto.
  */
 export async function buscarPorId(id: number): Promise<Produto> {
-    const { data } = await api.get<Produto>(`/produtos/${id}`)
+    const { data } = await api.get<Produto>(`/products/${id}`)
     return data
 }
 
@@ -26,7 +26,7 @@ export async function buscarPorId(id: number): Promise<Produto> {
  * @returns Uma Promise com o Produto recém-criado.
  */
 export async function criar(request: CriarProdutoRequest): Promise<Produto> {
-    const { data } = await api.post<Produto>('/produtos', request)
+    const { data } = await api.post<Produto>('/products', request)
     return data
 }
 
@@ -37,7 +37,7 @@ export async function criar(request: CriarProdutoRequest): Promise<Produto> {
  * @returns Uma Promise com o Produto atualizado.
  */
 export async function atualizar(id: number, request: AtualizarProdutoRequest): Promise<Produto> {
-    const { data } = await api.put<Produto>(`/produtos/${id}`, request)
+    const { data } = await api.put<Produto>(`/products/${id}`, request)
     return data
 }
 
@@ -46,5 +46,5 @@ export async function atualizar(id: number, request: AtualizarProdutoRequest): P
  * @param id - ID do produto a ser removido.
  */
 export async function remover(id: number): Promise<void> {
-    await api.delete(`/produtos/${id}`)
+    await api.delete(`/products/${id}`)
 }

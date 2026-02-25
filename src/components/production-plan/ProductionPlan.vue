@@ -33,7 +33,7 @@
           <v-card color="primary" class="pa-4">
             <div class="text-overline text-white">{{ t('productionPlan.totalSalesValue') }}</div>
             <div class="text-h4 font-weight-bold text-white">
-              $ {{ formatarMoeda(plano.valorTotalVenda) }}
+              $ {{ formatarMoeda(plano.totalSalesValue) }}
             </div>
           </v-card>
         </v-col>
@@ -41,7 +41,7 @@
           <v-card color="secondary" class="pa-4">
             <div class="text-overline text-white">{{ t('productionPlan.totalQtyProduced') }}</div>
             <div class="text-h4 font-weight-bold text-white">
-              {{ plano.quantidadeTotalProduzida }}
+              {{ plano.totalProducedQuantity }}
             </div>
           </v-card>
         </v-col>
@@ -54,16 +54,16 @@
         </v-card-title>
         <v-data-table
           :headers="colunasSugeridos"
-          :items="plano.itensSugeridos"
+          :items="plano.suggestedItems"
           :no-data-text="t('common.noData')"
           density="comfortable"
           hover
         >
-          <template #item.valorUnitario="{ item }">
-            $ {{ formatarMoeda(item.valorUnitario) }}
+          <template #item.priceUnitario="{ item }">
+            $ {{ formatarMoeda(item.priceUnitario) }}
           </template>
-          <template #item.valorTotalItem="{ item }">
-            $ {{ formatarMoeda(item.valorTotalItem) }}
+          <template #item.totalItemValue="{ item }">
+            $ {{ formatarMoeda(item.totalItemValue) }}
           </template>
         </v-data-table>
       </v-card>
@@ -75,16 +75,16 @@
         </v-card-title>
         <v-data-table
           :headers="colunasConsumo"
-          :items="plano.consumosMateriasPrimas"
+          :items="plano.rawMaterialConsumptions"
           :no-data-text="t('common.noData')"
           density="comfortable"
           hover
         >
-          <template #item.quantidadeConsumida="{ item }">
-            {{ formatarNumero(item.quantidadeConsumida) }}
+          <template #item.consumedQuantity="{ item }">
+            {{ formatarNumero(item.consumedQuantity) }}
           </template>
-          <template #item.unidadeMedida="{ item }">
-            {{ t('units.' + (item.unidadeMedida || '').toLowerCase()) || item.unidadeMedida }}
+          <template #item.unitOfMeasurement="{ item }">
+            {{ t('units.' + (item.unitOfMeasurement || '').toLowerCase()) || item.unitOfMeasurement }}
           </template>
         </v-data-table>
       </v-card>
@@ -96,24 +96,24 @@
         </v-card-title>
         <v-data-table
           :headers="colunasSaldo"
-          :items="plano.saldosMateriasPrimas"
+          :items="plano.rawMaterialBalances"
           :no-data-text="t('common.noData')"
           density="comfortable"
           hover
         >
-          <template #item.quantidadeInicial="{ item }">
-            {{ formatarNumero(item.quantidadeInicial) }}
+          <template #item.initialQuantity="{ item }">
+            {{ formatarNumero(item.initialQuantity) }}
           </template>
-          <template #item.quantidadeConsumida="{ item }">
-            {{ formatarNumero(item.quantidadeConsumida) }}
+          <template #item.consumedQuantity="{ item }">
+            {{ formatarNumero(item.consumedQuantity) }}
           </template>
-          <template #item.quantidadeSaldo="{ item }">
-            <v-chip :color="Number(item.quantidadeSaldo) > 0 ? 'success' : 'warning'" size="small">
-              {{ formatarNumero(item.quantidadeSaldo) }}
+          <template #item.balanceQuantity="{ item }">
+            <v-chip :color="Number(item.balanceQuantity) > 0 ? 'success' : 'warning'" size="small">
+              {{ formatarNumero(item.balanceQuantity) }}
             </v-chip>
           </template>
-          <template #item.unidadeMedida="{ item }">
-            {{ t('units.' + (item.unidadeMedida || '').toLowerCase()) || item.unidadeMedida }}
+          <template #item.unitOfMeasurement="{ item }">
+            {{ t('units.' + (item.unitOfMeasurement || '').toLowerCase()) || item.unitOfMeasurement }}
           </template>
         </v-data-table>
       </v-card>
@@ -139,27 +139,27 @@ const isCalculando = ref(false)
 const erro = ref('')
 
 const colunasSugeridos = computed(() => [
-  { title: t('product.code'), key: 'codigoProduto' },
-  { title: t('product.name'), key: 'nomeProduto' },
-  { title: t('productionPlan.suggestedQty'), key: 'quantidadeSugerida', align: 'end' as const },
-  { title: t('productionPlan.unitPrice'), key: 'valorUnitario', align: 'end' as const },
-  { title: t('productionPlan.totalValue'), key: 'valorTotalItem', align: 'end' as const },
+  { title: t('product.code'), key: 'codeProduct' },
+  { title: t('product.name'), key: 'nameProduct' },
+  { title: t('productionPlan.suggestedQty'), key: 'suggestedQuantity', align: 'end' as const },
+  { title: t('productionPlan.unitPrice'), key: 'priceUnitario', align: 'end' as const },
+  { title: t('productionPlan.totalValue'), key: 'totalItemValue', align: 'end' as const },
 ])
 
 const colunasConsumo = computed(() => [
-  { title: t('rawMaterial.code'), key: 'codigoMateriaPrima' },
-  { title: t('rawMaterial.name'), key: 'nomeMateriaPrima' },
-  { title: t('productionPlan.consumedQty'), key: 'quantidadeConsumida', align: 'end' as const },
-  { title: t('rawMaterial.unit'), key: 'unidadeMedida' },
+  { title: t('rawMaterial.code'), key: 'codeRawMaterial' },
+  { title: t('rawMaterial.name'), key: 'nameRawMaterial' },
+  { title: t('productionPlan.consumedQty'), key: 'consumedQuantity', align: 'end' as const },
+  { title: t('rawMaterial.unit'), key: 'unitOfMeasurement' },
 ])
 
 const colunasSaldo = computed(() => [
-  { title: t('rawMaterial.code'), key: 'codigoMateriaPrima' },
-  { title: t('rawMaterial.name'), key: 'nomeMateriaPrima' },
-  { title: t('productionPlan.initialQty'), key: 'quantidadeInicial', align: 'end' as const },
-  { title: t('productionPlan.consumedQty'), key: 'quantidadeConsumida', align: 'end' as const },
-  { title: t('productionPlan.balance'), key: 'quantidadeSaldo', align: 'end' as const },
-  { title: t('rawMaterial.unit'), key: 'unidadeMedida' },
+  { title: t('rawMaterial.code'), key: 'codeRawMaterial' },
+  { title: t('rawMaterial.name'), key: 'nameRawMaterial' },
+  { title: t('productionPlan.initialQty'), key: 'initialQuantity', align: 'end' as const },
+  { title: t('productionPlan.consumedQty'), key: 'consumedQuantity', align: 'end' as const },
+  { title: t('productionPlan.balance'), key: 'balanceQuantity', align: 'end' as const },
+  { title: t('rawMaterial.unit'), key: 'unitOfMeasurement' },
 ])
 
 function formatarMoeda(valor: number): string {
