@@ -1,8 +1,21 @@
-# Teste Prático Full Stack - P&D (Front-end)
+# Gerenciamento de Insumos & Otimização de Produção (Front-end)
 
-Aplicação Front-end desenvolvida em **Vue 3**, **Vuetify 4** e **TypeScript** para o desafio técnico de Gerenciamento de Insumos e Produção.
+> **Teste Prático Full Stack — P&D**
 
-##  o que foi implementado?
+** Objetivo:** Construir uma aplicação para gerenciamento de insumos e otimização de produção industrial.
+** Cenário:** Uma fábrica precisa controlar seu estoque de matérias-primas e decidir o que produzir para ter o **maior lucro possível** com o material disponível.
+
+## Requisitos do Desafio Atendidos
+
+-  **Entidades e CRUDs:** Gestão completa de Matérias-Primas (Código, Nome, Qtd) e Produtos (Código, Nome, Valor, Composição).
+-  **Cálculo de Produção:** Tela interativa que comunica com a API para analisar o estoque atual e sugerir o **Maior Valor Total de Venda** de forma matemática e exata (resolvendo conflitos de disputa de insumos e priorizando maior retorno financeiro).
+-  **Stack Obrigatória:** Desenvolvido em **Vue.js** (Vue 3 + Vuetify).
+-  **Qualidade de Código:** Refatorado seguindo conceitos de **Clean Code**, arquitetura limpa, nomenclatura em inglês e estrutura madura.
+-  **Diferenciais Implementados:** Internacionalização Nativa (i18n) completa na UI e validações, e Testes Unitários e tratamento de exceções no Back-end.
+
+---
+
+##  Extras e Diferenciais (Além do Pedido)
 
 Ao longo do desenvolvimento, a arquitetura foi aprimorada com foco em **Clean Code** e melhor experiência do usuário (UX):
 
