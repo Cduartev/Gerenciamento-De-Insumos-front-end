@@ -25,6 +25,7 @@
         </template>
 
         <template #item.actions="{ item }">
+          <v-btn icon="mdi-factory" variant="text" size="small" color="success" class="mr-1" title="Registrar Produção" @click="abrirProducao(item)" />
           <v-btn icon="mdi-pencil" variant="text" size="small" color="primary" @click="abrirFormulario(item)" />
           <v-btn icon="mdi-delete" variant="text" size="small" color="error" @click="confirmarExclusao(item)" />
         </template>
@@ -34,7 +35,13 @@
     <ProductForm
       v-model="dialogFormulario"
       :produto="produtoSelecionado"
-      @salvo="carregarDados"
+      @salvo="aoSalvarProduto"
+    />
+
+    <ProductProductionForm
+      v-model="dialogProducao"
+      :produto="produtoProduzindo"
+      @salvo="aoSalvarProducao"
     />
 
     <v-dialog v-model="dialogExclusao" max-width="420">
@@ -67,6 +74,7 @@ import type { Produto } from '@/types'
 import * as productService from '@/services/productService'
 import { extrairMensagemErroApi } from '@/utils/extractApiErrorMessage'
 import ProductForm from './ProductForm.vue'
+import ProductProductionForm from './ProductProductionForm.vue'
 
 const { t } = useI18n()
 
@@ -76,6 +84,9 @@ const excluindo = ref(false)
 
 const dialogFormulario = ref(false)
 const produtoSelecionado = ref<Produto | null>(null)
+
+const dialogProducao = ref(false)
+const produtoProduzindo = ref<Produto | null>(null)
 
 const dialogExclusao = ref(false)
 const produtoParaExcluir = ref<Produto | null>(null)
@@ -112,6 +123,20 @@ async function carregarDados() {
 function abrirFormulario(produto: Produto | null = null) {
   produtoSelecionado.value = produto
   dialogFormulario.value = true
+}
+
+function abrirProducao(produto: Produto) {
+  produtoProduzindo.value = produto
+  dialogProducao.value = true
+}
+
+function aoSalvarProduto() {
+  mostrarMensagem(t('product.saveSuccess'))
+  carregarDados()
+}
+
+function aoSalvarProducao() {
+  mostrarMensagem(t('product.productionSuccess'))
 }
 
 function confirmarExclusao(produto: Produto) {

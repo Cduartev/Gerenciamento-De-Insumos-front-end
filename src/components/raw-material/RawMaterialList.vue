@@ -34,7 +34,7 @@
     <RawMaterialForm
       v-model="dialogFormulario"
       :materia-prima="materiaPrimaSelecionada"
-      @salvo="carregarDados"
+      @salvo="aoSalvarMateriaPrima"
     />
 
     <v-dialog v-model="dialogExclusao" max-width="420">
@@ -112,6 +112,11 @@ async function carregarDados() {
 function abrirFormulario(materiaPrima: MateriaPrima | null = null) {
   materiaPrimaSelecionada.value = materiaPrima
   dialogFormulario.value = true
+}
+
+function aoSalvarMateriaPrima() {
+  mostrarMensagem(t('rawMaterial.saveSuccess'))
+  carregarDados()
 }
 
 function confirmarExclusao(materiaPrima: MateriaPrima) {
