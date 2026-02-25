@@ -88,6 +88,15 @@ export const messages = {
         backendErrors: {
             insufficientStock: "Insufficient stock for raw material '{name}' ({code}). Required: {required}, Available: {available}",
         },
+        notifications: {
+            title: 'Notifications',
+            empty: 'You have no new notifications',
+            markAllRead: 'Mark all as read',
+            lowStockTitle: 'Low Stock Alert',
+            lowStockBody: 'Raw material {name} ({code}) is running low: {stock} units available.',
+            productionBlockedTitle: 'Production Blocked',
+            productionBlockedBody: 'Could not execute the production plan due to insufficient raw materials.',
+        },
     },
     pt: {
         app: {
@@ -174,6 +183,15 @@ export const messages = {
         },
         backendErrors: {
             insufficientStock: "Estoque insuficiente para a matéria-prima '{name}' ({code}). Necessário: {required}, Disponível: {available}",
+        },
+        notifications: {
+            title: 'Notificações',
+            empty: 'Você não tem novas notificações',
+            markAllRead: 'Marcar todas como lidas',
+            lowStockTitle: 'Alerta de Baixo Estoque',
+            lowStockBody: 'A matéria-prima {name} ({code}) está em baixo estoque: restam {stock} unidades.',
+            productionBlockedTitle: 'Produção Bloqueada',
+            productionBlockedBody: 'Não foi possível registrar a produção por falta de insumos suficientes.',
         },
     }
 }

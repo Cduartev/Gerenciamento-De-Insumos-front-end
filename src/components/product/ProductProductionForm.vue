@@ -53,9 +53,15 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Produto } from '@/types'
 import * as productionService from '@/services/productionService'
 import { extrairMensagemErroApi } from '@/utils/extractApiErrorMessage'
+import { useNotificationStore } from '@/stores/notificationStore'
+
+const { t } = useI18n()
+const notificationStore = useNotificationStore()
+
 
 const props = defineProps<{
   modelValue: boolean
@@ -112,7 +118,17 @@ async function salvar() {
     emit('salvo')
     fechar()
   } catch (error: any) {
-    erroApi.value = extrairMensagemErroApi(error, 'Erro ao registrar produção')
+    const errorMsg = extrairMensagemErroApi(error, 'Erro ao registrar produção')
+    erroApi.value = errorMsg
+
+    const rawMsg = error?.response?.data?.mensagem || error?.response?.data?.message || ''
+    if (rawMsg.includes('Estoque insuficiente')) {
+      notificationStore.addNotification({
+        type: 'error',
+        title: t('notifications.productionBlockedTitle'),
+        message: t('notifications.productionBlockedBody')
+      })
+    }
   } finally {
     salvando.value = false
   }
