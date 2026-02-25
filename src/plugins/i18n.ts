@@ -85,6 +85,9 @@ export const messages = {
         $vuetify: {
             ...en,
         },
+        backendErrors: {
+            insufficientStock: "Insufficient stock for raw material '{name}' ({code}). Required: {required}, Available: {available}",
+        },
     },
     pt: {
         app: {
@@ -168,6 +171,9 @@ export const messages = {
         },
         $vuetify: {
             ...pt,
+        },
+        backendErrors: {
+            insufficientStock: "Estoque insuficiente para a matéria-prima '{name}' ({code}). Necessário: {required}, Disponível: {available}",
         },
     }
 }
