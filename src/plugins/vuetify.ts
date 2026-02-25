@@ -1,15 +1,16 @@
-/**
- * plugins/vuetify.ts
- *
- * Framework documentation: https://vuetifyjs.com
- */
-
 import { createVuetify } from 'vuetify'
+import { pt, en } from 'vuetify/locale'
+import { createVueI18nAdapter as createVuetifyI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
+import { useI18n, i18n } from './i18n'
+
 import '@mdi/font/css/materialdesignicons.css'
 import '../styles/layers.css'
 import 'vuetify/styles'
 
 export default createVuetify({
+  locale: {
+    adapter: createVuetifyI18nAdapter({ i18n, useI18n }),
+  },
   theme: {
     defaultTheme: 'light',
     themes: {

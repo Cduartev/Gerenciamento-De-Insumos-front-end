@@ -1,6 +1,7 @@
-import { createI18n } from 'vue-i18n'
+import { createI18n, useI18n } from 'vue-i18n'
+import { pt, en } from 'vuetify/locale'
 
-const messages = {
+export const messages = {
     en: {
         app: {
             title: 'Industrial Production',
@@ -77,7 +78,10 @@ const messages = {
             kilogram: 'Kilogram',
             liter: 'Liter',
             milliliter: 'Milliliter',
-        }
+        },
+        $vuetify: {
+            ...en,
+        },
     },
     pt: {
         app: {
@@ -155,13 +159,18 @@ const messages = {
             kilogram: 'Quilograma',
             liter: 'Litro',
             milliliter: 'Mililitro',
-        }
+        },
+        $vuetify: {
+            ...pt,
+        },
     }
 }
 
 export const i18n = createI18n({
     legacy: false,
-    locale: 'en', // UI em inglês conforme pedido
+    locale: 'en',
     fallbackLocale: 'en',
     messages
 })
+
+export { useI18n }
