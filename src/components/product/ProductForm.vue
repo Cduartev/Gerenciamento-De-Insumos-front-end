@@ -70,7 +70,7 @@
                     density="compact"
                     variant="outlined"
                     hide-details
-                    placeholder="Selecione..."
+                    :placeholder="t('product.selectRawMaterial')"
                   />
                 </td>
                 <td class="pt-2">
@@ -147,9 +147,9 @@ const formulario = ref(formularioInicial())
 
 const regras = computed(() => ({
   obrigatorio: (v: any) => !!v || v === 0 || t('common.requiredField'),
-  maxCodigo: (v: string) => !v || v.length <= 50 || 'Max length is 50 characters.',
-  maxNome: (v: string) => !v || v.length <= 120 || 'Max length is 120 characters.',
-  naoNegativo: (v: number) => v >= 0 || 'Cannot be negative.',
+  maxCodigo: (v: string) => !v || v.length <= 50 || t('common.maxLen', { max: 50 }),
+  maxNome: (v: string) => !v || v.length <= 120 || t('common.maxLen', { max: 120 }),
+  naoNegativo: (v: number) => v >= 0 || t('common.nonNegative'),
 }))
 
 async function carregarMateriasPrimas() {
@@ -204,11 +204,11 @@ function validarComposicao(): boolean {
   const matPrimasSelecionadas = new Set()
   for (const item of formulario.value.compositionItems) {
     if (!item.rawMaterialId || item.requiredQuantity <= 0) {
-      erroComposicao.value = 'All composition items must have a raw material and quantity greater than 0.'
+      erroComposicao.value = t('product.invalidCompositionItem')
       return false
     }
     if (matPrimasSelecionadas.has(item.rawMaterialId)) {
-      erroComposicao.value = 'Duplicate raw materials are not allowed in the composition.'
+      erroComposicao.value = t('product.duplicateRawMaterial')
       return false
     }
     matPrimasSelecionadas.add(item.rawMaterialId)

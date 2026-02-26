@@ -2,17 +2,17 @@
   <v-dialog :model-value="modelValue" @update:model-value="fechar" max-width="450">
     <v-card v-if="produto">
       <v-card-title>
-        <span class="text-h6">Registrar Produção</span>
+        <span class="text-h6">{{ t('product.production.title') }}</span>
       </v-card-title>
       
       <v-card-text>
         <v-form ref="form" @submit.prevent="salvar">
           <p class="mb-4">
-            Produto: <strong>{{ produto.name }}</strong> ({{ produto.code }})
+            {{ t('product.production.productLabel') }} <strong>{{ produto.name }}</strong> ({{ produto.code }})
           </p>
           <v-text-field
             v-model.number="quantidade"
-            label="Quantidade a Produzir"
+            :label="t('product.production.quantityLabel')"
             type="number"
             min="1"
             :rules="regras"
@@ -36,7 +36,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn color="grey-darken-1" variant="text" @click="fechar">
-          Cancelar
+          {{ t('common.cancel') }}
         </v-btn>
         <v-btn
           color="primary"
@@ -44,7 +44,7 @@
           :loading="salvando"
           @click="salvar"
         >
-          Salvar
+          {{ t('common.save') }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -79,8 +79,8 @@ const salvando = ref(false)
 const erroApi = ref('')
 
 const regras = [
-  (v: any) => !!v || 'Quantidade é obrigatória',
-  (v: number) => v >= 1 || 'Mínimo de 1 unidade'
+  (v: any) => !!v || t('product.production.quantityRequired'),
+  (v: number) => v >= 1 || t('product.production.minQuantity')
 ]
 
 watch(
@@ -118,7 +118,7 @@ async function salvar() {
     emit('salvo')
     fechar()
   } catch (error: any) {
-    const errorMsg = extrairMensagemErroApi(error, 'Erro ao registrar produção')
+    const errorMsg = extrairMensagemErroApi(error, t('product.production.saveError'))
     erroApi.value = errorMsg
 
     const rawMsg = error?.response?.data?.mensagem || error?.response?.data?.message || ''

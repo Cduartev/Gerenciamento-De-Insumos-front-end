@@ -95,9 +95,9 @@ const formulario = ref(formularioInicial())
 
 const regras = computed(() => ({
   obrigatorio: (v: any) => !!v || v === 0 || t('common.requiredField'),
-  maxCodigo: (v: string) => !v || v.length <= 50 || 'Max length is 50 characters.',
-  maxNome: (v: string) => !v || v.length <= 120 || 'Max length is 120 characters.',
-  naoNegativo: (v: number) => v >= 0 || 'Cannot be negative.',
+  maxCodigo: (v: string) => !v || v.length <= 50 || t('common.maxLen', { max: 50 }),
+  maxNome: (v: string) => !v || v.length <= 120 || t('common.maxLen', { max: 120 }),
+  naoNegativo: (v: number) => v >= 0 || t('common.nonNegative'),
 }))
 
 watch(() => props.modelValue, (isOpen) => {

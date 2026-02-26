@@ -22,6 +22,8 @@ export const messages = {
             noData: 'No data registered.',
             requiredField: 'Required field.',
             addItem: 'Add Item',
+            maxLen: 'Max length is {max} characters.',
+            nonNegative: 'Cannot be negative.',
         },
         rawMaterial: {
             title: 'Raw Materials',
@@ -58,6 +60,17 @@ export const messages = {
             loadError: 'Error loading products.',
             registerProduction: 'Register Production',
             productionSuccess: 'Production registered and stock deducted successfully!',
+            selectRawMaterial: 'Select...',
+            invalidCompositionItem: 'All composition items must have a raw material and quantity greater than 0.',
+            duplicateRawMaterial: 'Duplicate raw materials are not allowed in the composition.',
+            production: {
+                title: 'Register Production',
+                productLabel: 'Product:',
+                quantityLabel: 'Quantity to Produce',
+                quantityRequired: 'Quantity is required',
+                minQuantity: 'Minimum 1 unit',
+                saveError: 'Error registering production',
+            },
         },
         productionPlan: {
             title: 'Production Plan',
@@ -154,6 +167,8 @@ export const messages = {
             noData: 'Nenhum dado registrado.',
             requiredField: 'Campo obrigatório.',
             addItem: 'Adicionar Item',
+            maxLen: 'Tamanho máximo é de {max} caracteres.',
+            nonNegative: 'Não pode ser negativo.',
         },
         rawMaterial: {
             title: 'Matérias-Primas',
@@ -190,6 +205,17 @@ export const messages = {
             loadError: 'Erro ao carregar produtos.',
             registerProduction: 'Registrar Produção',
             productionSuccess: 'Produção registrada e estoque de insumos baixado com sucesso!',
+            selectRawMaterial: 'Selecione...',
+            invalidCompositionItem: 'Todos os itens da composição devem ter uma matéria-prima e quantidade maior que 0.',
+            duplicateRawMaterial: 'Não são permitidas matérias-primas duplicadas na composição.',
+            production: {
+                title: 'Registrar Produção',
+                productLabel: 'Produto:',
+                quantityLabel: 'Quantidade a Produzir',
+                quantityRequired: 'Quantidade é obrigatória',
+                minQuantity: 'Mínimo de 1 unidade',
+                saveError: 'Erro ao registrar produção',
+            },
         },
         productionPlan: {
             title: 'Plano de Produção',
