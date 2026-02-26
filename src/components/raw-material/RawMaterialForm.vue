@@ -39,10 +39,10 @@
             :rules="[regras.obrigatorio]"
           >
             <template #item="{ props, item }">
-              <v-list-item v-bind="props" :title="item?.raw?.value ? t(`units.${item.raw.value.toLowerCase()}`) : item?.title || ''" />
+              <v-list-item v-bind="props" :title="(item as any)?.raw?.value ? t(`units.${(item as any).raw.value.toLowerCase()}`) : (item as any)?.title || ''" />
             </template>
             <template #selection="{ item }">
-              {{ item?.raw?.value ? t(`units.${item.raw.value.toLowerCase()}`) : item?.title || '' }}
+              {{ (item as any)?.raw?.value ? t(`units.${(item as any).raw.value.toLowerCase()}`) : (item as any)?.title || '' }}
             </template>
           </v-select>
         </v-form>

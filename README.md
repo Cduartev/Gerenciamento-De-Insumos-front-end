@@ -11,6 +11,7 @@
 -  **Cálculo de Produção:** Tela interativa que comunica com a API para analisar o estoque atual e sugerir o **Maior Valor Total de Venda** de forma matemática e exata (resolvendo conflitos de disputa de insumos e priorizando maior retorno financeiro).
 -  **Dashboard Analítico:** Página inicial com gráficos (Chart.js) mostrando os insumos com maior estoque e os produtos mais caros, com design moderno e indicadores KPI.
 -  **Autenticação e Segurança:** Fluxo de Login e Registro com captura e interceptação de tokens JWT na comunicação com a API (Axios).
+-  **CORS Nativo:** O front-end comunica diretamente com o back-end em `http://localhost:8080` via CORS, A configuração de CORS global está no `SecurityConfig` do back-end, permitindo origens, métodos e headers necessários.
 -  **Stack Obrigatória:** Desenvolvido em **Vue.js** (Vue 3 + Vuetify).
 -  **Qualidade de Código:** Refatorado seguindo conceitos de **Clean Code**, arquitetura limpa, nomenclatura em inglês e estrutura madura.
 -  **Diferenciais Implementados:** Internacionalização Nativa (i18n), Tematização (Dark Mode) e Sistema de Notificações global.
@@ -60,7 +61,7 @@ pnpm run dev
 
 Acesse o front-end em **http://localhost:3000**.
 
-> **Nota:** O Vite está configurado com proxy para redirecionar chamadas da `/api` para `http://localhost:8080`, unificando a origem das requisições e contornando problemas de CORS durante o desenvolvimento.
+> **Nota:** O front-end se comunica diretamente com o back-end via **CORS nativo** (sem proxy). O Axios envia requisições para `http://localhost:8080/api`. O back-end possui configuração global de CORS (`SecurityConfig.java`) que libera todos os origins, métodos e headers necessários — incluindo o preflight `OPTIONS`.
 
 ##  Estrutura do Projeto
 
