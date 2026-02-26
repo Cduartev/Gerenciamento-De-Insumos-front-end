@@ -4,10 +4,14 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-app-bar-title class="font-weight-bold">
         <v-icon icon="mdi-factory" class="mr-2" />
-        {{ t('app.title') }}
+        {{ t('app.title', 'Inventory Manager') }}
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
+
+      <v-btn icon @click="toggleTheme" class="mr-2">
+        <v-icon>{{ theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
+      </v-btn>
 
       <v-menu v-model="menuNotificacoes" :close-on-content-click="false" location="bottom end">
         <template v-slot:activator="{ props }">
@@ -43,7 +47,7 @@
           <v-list v-if="notificationStore.notifications.length > 0" class="pa-0" max-height="400" >
             <template v-for="(notif, idx) in notificationStore.notifications" :key="notif.id">
               <v-list-item
-                :class="{ 'bg-grey-lighten-4': !notif.read }"
+                :class="{ 'bg-grey-lighten-4': !notif.read && !theme.global.current.value.dark, 'bg-grey-darken-3': !notif.read && theme.global.current.value.dark }"
                 class="py-3 px-4"
                 @click="notificationStore.markAsRead(notif.id)"
               >
@@ -95,10 +99,20 @@
         <v-btn value="pt" class="text-caption px-2">PT</v-btn>
         <v-btn value="en" class="text-caption px-2">EN</v-btn>
       </v-btn-toggle>
+
+      <v-btn icon @click="handleLogout" title="Logout">
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" :rail="false">
       <v-list nav density="default">
+        <v-list-item
+          prepend-icon="mdi-view-dashboard"
+          :title="t('dashboard.title', 'Dashboard')"
+          value="dashboard"
+          to="/"
+        />
         <v-list-item
           prepend-icon="mdi-package-variant-closed"
           :title="t('app.nav.rawMaterials')"
@@ -131,14 +145,26 @@
 <script lang="ts" setup>
 import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useTheme } from 'vuetify'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const { t, locale } = useI18n()
+const theme = useTheme()
 const drawer = ref(true)
 const menuNotificacoes = ref(false)
 const notificationStore = useNotificationStore()
+const authStore = useAuthStore()
 
 const currentLocale = ref(locale.value)
+
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+}
+
+function handleLogout() {
+  authStore.logout()
+}
 
 onMounted(() => {
   notificationStore.checkLowStock()

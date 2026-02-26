@@ -85,3 +85,16 @@ export interface SugestaoPlanoProducaoResponse {
   rawMaterialConsumptions: ConsumoMateriaPrima[]
   rawMaterialBalances: SaldoMateriaPrima[]
 }
+
+export interface User {
+  name: string
+  email: string
+  role: string
+}
+
+export interface LoginResponse {
+  token: string
+  name: string
+  email: string
+  role: string
+}

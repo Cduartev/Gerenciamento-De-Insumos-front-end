@@ -9,9 +9,11 @@
 
 -  **Entidades e CRUDs:** Gestão completa de Matérias-Primas (Código, Nome, Qtd) e Produtos (Código, Nome, Valor, Composição).
 -  **Cálculo de Produção:** Tela interativa que comunica com a API para analisar o estoque atual e sugerir o **Maior Valor Total de Venda** de forma matemática e exata (resolvendo conflitos de disputa de insumos e priorizando maior retorno financeiro).
+-  **Dashboard Analítico:** Página inicial com gráficos (Chart.js) mostrando os insumos com maior estoque e os produtos mais caros, com design moderno e indicadores KPI.
+-  **Autenticação e Segurança:** Fluxo de Login e Registro com captura e interceptação de tokens JWT na comunicação com a API (Axios).
 -  **Stack Obrigatória:** Desenvolvido em **Vue.js** (Vue 3 + Vuetify).
 -  **Qualidade de Código:** Refatorado seguindo conceitos de **Clean Code**, arquitetura limpa, nomenclatura em inglês e estrutura madura.
--  **Diferenciais Implementados:** Internacionalização Nativa (i18n) completa na UI e validações, e Testes Unitários e tratamento de exceções no Back-end.
+-  **Diferenciais Implementados:** Internacionalização Nativa (i18n), Tematização (Dark Mode) e Sistema de Notificações global.
 
 ---
 
@@ -28,6 +30,9 @@ Ao longo do desenvolvimento, a arquitetura foi aprimorada com foco em **Clean Co
   - Foi desenvolvido um sistema de alerta global (`notificationStore.ts`) acessível pelo sino de notificações no topo da tela.
   - **Alerta de Estoque Baixo:** Sempre que a aplicação é iniciada, o estoque de matérias-primas é checado. Insumos com quantidade menor que 50 disparam um alerta.
   - **Produção Bloqueada:** Integrado ao interceptador de respostas da API. Quando o Back-end recusa uma ordem de produção por falta de matéria-prima, um alerta vermelho é adicionado na central de notificações.
+
+- ** Apresentação Visual Premium (Dark Mode)**
+  - A interface possui um botão para alteração de tema (claro/escuro) no nível de todo o framework Vuetify, refletindo automaticamente em gráficos e tabelas.
 
 - **Clean Code e Refatoração**
   - Todo o código foi revisado, garantindo a remoção total residuais, "código morto" ou pastas vazias.
@@ -59,10 +64,13 @@ Acesse o front-end em **http://localhost:3000**.
 ```text
 src/
 ├── components/
-│   ├── layouts/          # Estrutura Base (MainLayout)
+│   ├── layouts/          # Estrutura Base (MainLayout) com Sidebar, Header, Locale e Tema
 │   ├── product/          # Telas e CRUD de Produtos + Produção
 │   ├── production-plan/  # Tela de cálculo autônomo do Plano Ótimo (Sugestão)
 │   └── raw-material/     # Telas e CRUD de Matérias-Primas
+├── views/
+│   ├── auth/             # Componentes de Login e Registro
+│   └── dashboard/        # Dashboard Analítico com Chart.js
 ├── constants/            # Tabelas de domínio estáticas (ex: units of measure)
 ├── plugins/              # Inicialização do Vuetify, Pinia e i18n
 ├── router/               # Vue Router configurado
