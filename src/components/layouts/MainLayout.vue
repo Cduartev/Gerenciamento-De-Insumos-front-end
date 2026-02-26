@@ -3,12 +3,11 @@
     <v-app-bar color="primary" density="default" elevation="2">
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-app-bar-title class="font-weight-bold d-flex align-center">
-        <img src="/Logotipo_Vale.svg" alt="Vale Logo" height="32" class="mr-3" style="display: block;" />
         <span class="d-none d-sm-inline">{{ t('app.title', 'Inventory Manager') }}</span>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
-
+       <img src="/Logotipo_Vale.svg" alt="Vale Logo" class="app-logo mr-3" />
       <v-btn icon @click="toggleTheme" class="mr-2">
         <v-icon>{{ theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
       </v-btn>
@@ -115,3 +114,18 @@ watch(currentLocale, (newLocale) => {
   locale.value = newLocale
 })
 </script>
+
+<style scoped>
+.app-logo{
+  height:32px;
+  width:auto;
+  display:block;
+}
+
+/* Improve logo contrast on dark theme by adding a subtle white backdrop */
+:deep(.v-theme--dark) .app-logo{
+  background: #ffffff;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+</style>

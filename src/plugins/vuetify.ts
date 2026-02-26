@@ -16,13 +16,27 @@ export default createVuetify({
     themes: {
       light: {
         colors: {
-          primary: '#008e5b', // Vale Green
-          secondary: '#ffb81c', // Vale Yellow
-          accent: '#004731', // Darker Green
+          // Vale brand colors
+          primary: '#007E7A', // Verde Vale (Pantone 328 C)
+          secondary: '#ECB11F', // Amarelo Vale (Pantone 124 C)
+          // Support / neutrals
+          'vale-gray': '#747678', // Cinza Vale (Pantone Cool Gray 9 C)
+          'white': '#FFFFFF',
+
+          // map common semantic colors to accessible variants
+          accent: '#00574f',
           error: '#D32F2F',
           warning: '#F57C00',
           info: '#0288D1',
           success: '#388E3C',
+        },
+      },
+      dark: {
+        colors: {
+          primary: '#007E7A',
+          secondary: '#ECB11F',
+          'vale-gray': '#747678',
+          'white': '#FFFFFF',
         },
       },
     },
