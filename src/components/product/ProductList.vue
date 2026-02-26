@@ -25,9 +25,23 @@
         </template>
 
         <template #item.actions="{ item }">
-          <v-btn icon="mdi-factory" variant="text" size="small" color="success" class="mr-1" title="Registrar Produção" @click="abrirProducao(item)" />
-          <v-btn icon="mdi-pencil" variant="text" size="small" color="primary" @click="abrirFormulario(item)" />
-          <v-btn icon="mdi-delete" variant="text" size="small" color="error" @click="confirmarExclusao(item)" />
+          <v-tooltip :text="t('product.registerProduction')">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="mdi-factory" variant="text" size="small" color="success" class="mr-1" @click="abrirProducao(item)" />
+            </template>
+          </v-tooltip>
+
+          <v-tooltip :text="t('common.edit')">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="mdi-pencil" variant="text" size="small" color="primary" class="mr-1" @click="abrirFormulario(item)" />
+            </template>
+          </v-tooltip>
+
+          <v-tooltip :text="t('common.delete')">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="mdi-delete" variant="text" size="small" color="error" @click="confirmarExclusao(item)" />
+            </template>
+          </v-tooltip>
         </template>
       </v-data-table>
     </v-card>

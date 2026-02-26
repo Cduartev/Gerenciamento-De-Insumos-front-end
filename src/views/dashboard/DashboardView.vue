@@ -1,15 +1,91 @@
 <template>
   <v-container fluid class="pa-6">
-    <div class="d-flex align-center justify-space-between mb-6">
-      <h1 class="text-h4 font-weight-bold">
-        <v-icon color="primary" class="mr-2" size="40">mdi-view-dashboard</v-icon>
+    <div class="d-flex align-center justify-space-between mb-6 flex-wrap">
+      <h1 class="text-h4 font-weight-bold mb-4 mb-sm-0 d-flex align-center">
         {{ t('dashboard.title', 'Dashboard') }}
       </h1>
       
-      <v-chip color="primary" variant="flat" size="large">
-        <v-icon start>mdi-account</v-icon>
-        {{ user?.name || '' }} ({{ user?.role }})
-      </v-chip>
+      <div class="d-flex align-center">
+        <v-menu v-model="menuNotificacoes" :close-on-content-click="false" location="bottom end">
+          <template v-slot:activator="{ props }">
+            <v-btn icon variant="text" color="grey-darken-2" class="mr-4" v-bind="props">
+              <v-badge
+                v-if="notificationStore.unreadCount > 0"
+                :content="notificationStore.unreadCount"
+                color="error"
+                floating
+              >
+                <v-icon>mdi-bell-outline</v-icon>
+              </v-badge>
+              <v-icon v-else>mdi-bell-outline</v-icon>
+            </v-btn>
+          </template>
+
+          <v-card min-width="350" max-width="450" class="mt-2" elevation="4">
+            <v-card-title class="d-flex justify-space-between align-center px-4 py-2 text-subtitle-1 font-weight-bold">
+              {{ t('notifications.title') }}
+              <v-btn
+                v-if="notificationStore.notifications.length > 0"
+                variant="text"
+                size="small"
+                color="primary"
+                @click="notificationStore.markAllAsRead()"
+              >
+                {{ t('notifications.markAllRead') }}
+              </v-btn>
+            </v-card-title>
+            
+            <v-divider></v-divider>
+            
+            <v-list v-if="notificationStore.notifications.length > 0" class="pa-0" max-height="400" >
+              <template v-for="(notif, idx) in notificationStore.notifications" :key="notif.id">
+                <v-list-item
+                  :class="{ 'bg-grey-lighten-4': !notif.read && !theme.global.current.value.dark, 'bg-grey-darken-3': !notif.read && theme.global.current.value.dark }"
+                  class="py-3 px-4"
+                  @click="notificationStore.markAsRead(notif.id)"
+                >
+                  <template v-slot:prepend>
+                    <v-icon
+                      :color="notif.type === 'error' ? 'error' : notif.type === 'warning' ? 'warning' : 'info'"
+                      :icon="notif.type === 'error' ? 'mdi-alert-circle' : notif.type === 'warning' ? 'mdi-alert' : 'mdi-information'"
+                      size="large"
+                      class="mr-3"
+                    ></v-icon>
+                  </template>
+
+                  <v-list-item-title class="font-weight-medium text-body-2 mb-1" style="white-space: normal">
+                    {{ notif.title }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle class="text-caption" style="white-space: normal">
+                    {{ notif.message }}
+                  </v-list-item-subtitle>
+                  
+                  <template v-slot:append>
+                    <v-btn
+                      icon="mdi-close"
+                      variant="text"
+                      size="small"
+                      color="grey"
+                      @click.stop="notificationStore.removeNotification(notif.id)"
+                    />
+                  </template>
+                </v-list-item>
+                <v-divider v-if="idx < notificationStore.notifications.length - 1"></v-divider>
+              </template>
+            </v-list>
+            
+            <div v-else class="pa-6 text-center text-grey-darken-1 text-body-2">
+              <v-icon icon="mdi-bell-sleep" size="large" class="mb-2"></v-icon>
+              <div>{{ t('notifications.empty') }}</div>
+            </div>
+          </v-card>
+        </v-menu>
+
+        <v-chip color="primary" variant="flat" size="large">
+          <v-icon start>mdi-account</v-icon>
+          {{ user?.name || '' }} ({{ user?.role }})
+        </v-chip>
+      </div>
     </div>
 
     <!-- Overview Cards -->
@@ -21,7 +97,7 @@
               <p class="text-subtitle-1 text-grey-darken-1 mb-1">{{ t('dashboard.totalProducts', 'Total Products') }}</p>
               <h2 class="text-h3 font-weight-bold">{{ products.length }}</h2>
             </div>
-            <v-avatar color="primary-lighten-4" size="64">
+            <v-avatar color="primary-lighten-4" size="64" class="ml-4 flex-shrink-0">
               <v-icon color="primary" size="36">mdi-package-variant-closed</v-icon>
             </v-avatar>
           </div>
@@ -35,7 +111,7 @@
               <p class="text-subtitle-1 text-grey-darken-1 mb-1">{{ t('dashboard.totalRawMaterials', 'Raw Materials Types') }}</p>
               <h2 class="text-h3 font-weight-bold">{{ rawMaterials.length }}</h2>
             </div>
-            <v-avatar color="success-lighten-4" size="64">
+            <v-avatar color="success-lighten-4" size="64" class="ml-4 flex-shrink-0">
               <v-icon color="success" size="36">mdi-leaf</v-icon>
             </v-avatar>
           </div>
@@ -49,7 +125,7 @@
               <p class="text-subtitle-1 text-grey-darken-1 mb-1">{{ t('dashboard.lowStock', 'Low Stock Items') }}</p>
               <h2 class="text-h3 font-weight-bold text-warning">{{ lowStockCount }}</h2>
             </div>
-            <v-avatar color="warning-lighten-4" size="64">
+            <v-avatar color="warning-lighten-4" size="64" class="ml-4 flex-shrink-0">
               <v-icon color="warning" size="36">mdi-alert</v-icon>
             </v-avatar>
           </div>
@@ -89,7 +165,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useTheme } from 'vuetify'
 import { useAuthStore } from '@/stores/authStore'
+import { useNotificationStore } from '@/stores/notificationStore'
 import * as productService from '@/services/productService'
 import * as rawMaterialService from '@/services/rawMaterialService'
 import type { Produto, MateriaPrima } from '@/types'
@@ -109,8 +187,11 @@ import { Bar, Doughnut } from 'vue-chartjs'
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement)
 
 const { t } = useI18n()
+const theme = useTheme()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 
+const menuNotificacoes = ref(false)
 const user = computed(() => authStore.user)
 const loading = ref(true)
 
@@ -172,6 +253,7 @@ const doughnutOptions = {
 }
 
 onMounted(async () => {
+  notificationStore.checkLowStock()
   try {
     const [prods, rms] = await Promise.all([
       productService.listarTodos(),

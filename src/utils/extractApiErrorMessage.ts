@@ -8,10 +8,11 @@ export function extrairMensagemErroApi(error: any, defaultMessage = 'An unexpect
   }
 
   const message = response.mensagem || response.message
-  const details = Array.isArray(response.detalhes) ? response.detalhes : []
+  const details = Array.isArray(response.detalhes) ? response.detalhes : (Array.isArray(response.details) ? response.details : [])
 
   if (details.length > 0) {
-    return `${message || 'Request error.'} ${details.join(' | ')}`
+    // Return specific validation fields separated by pipeline
+    return `${message || 'Validation error:'} ${details.join(' | ')}`
   }
 
   const finalMessage = message || defaultMessage

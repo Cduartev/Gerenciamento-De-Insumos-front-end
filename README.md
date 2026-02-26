@@ -31,8 +31,11 @@ Ao longo do desenvolvimento, a arquitetura foi aprimorada com foco em **Clean Co
   - **Alerta de Estoque Baixo:** Sempre que a aplicação é iniciada, o estoque de matérias-primas é checado. Insumos com quantidade menor que 50 disparam um alerta.
   - **Produção Bloqueada:** Integrado ao interceptador de respostas da API. Quando o Back-end recusa uma ordem de produção por falta de matéria-prima, um alerta vermelho é adicionado na central de notificações.
 
-- ** Apresentação Visual Premium (Dark Mode)**
+- ** Apresentação Visual Corporativa Premium (Tema Vale)**
   - A interface possui um botão para alteração de tema (claro/escuro) no nível de todo o framework Vuetify, refletindo automaticamente em gráficos e tabelas.
+  - **Identidade Visual da Vale:** O projeto foi estilizado seguindo o manual de marca corporativo da Vale (Verde `#008e5b` e Amarelo `#ffb81c`), incluindo a aplicação da sua logo oficial (`.svg`).
+  - **Glassmorphism & UX:** Telas de Autenticação com design moderno, cartões translúcidos (backdrop-filter) e botões com brilho neon simulando interfaces de maquinário industrial avançado.
+  - **Bandeiras SVG:** Menu de internacionalização com ícones vetoriais em alta resolução das bandeiras do Brasil e Estados Unidos.
 
 - **Clean Code e Refatoração**
   - Todo o código foi revisado, garantindo a remoção total residuais, "código morto" ou pastas vazias.
