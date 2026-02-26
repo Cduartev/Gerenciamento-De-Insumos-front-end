@@ -1,5 +1,11 @@
 <template>
   <div class="login-background d-flex align-center justify-center fill-height">
+    <!-- Vídeo de fundo profissional -->
+    <video autoplay muted loop playsinline class="login-bg-video">
+      <source src="/video_login.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeo em background.
+    </video>
+    <div class="login-bg-overlay"></div>
     <!-- Language Switcher absolutely positioned at the top right -->
     <div class="lang-switcher">
       <v-btn-toggle
@@ -151,6 +157,28 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
+/* Video background styling */
+.login-bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.login-bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.65);
+  z-index: 0;
+  pointer-events: none;
+}
 .login-background {
   background: linear-gradient(135deg, #004731 0%, #008e5b 100%);
   min-height: 100vh;
