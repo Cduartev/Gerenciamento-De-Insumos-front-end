@@ -1,12 +1,10 @@
 <template>
   <div class="login-background d-flex align-center justify-center fill-height">
-    <!-- Vídeo de fundo profissional -->
     <video autoplay muted loop playsinline class="login-bg-video">
       <source src="/video_login.mp4" type="video/mp4" />
       Seu navegador não suporta vídeo em background.
     </video>
     <div class="login-bg-overlay"></div>
-    <!-- Language Switcher absolutely positioned at the top right -->
     <div class="lang-switcher">
       <v-btn-toggle
         v-model="currentLocale"

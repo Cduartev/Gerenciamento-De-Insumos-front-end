@@ -8,7 +8,7 @@
       <div class="d-flex align-center">
         <v-menu v-model="menuNotificacoes" :close-on-content-click="false" location="bottom end">
           <template v-slot:activator="{ props }">
-            <v-btn icon variant="text" color="grey-darken-2" class="mr-4" v-bind="props">
+            <v-btn icon variant="text" color="white" class="mr-4" v-bind="props">
               <v-badge
                 v-if="notificationStore.unreadCount > 0"
                 :content="notificationStore.unreadCount"
@@ -82,7 +82,7 @@
         </v-menu>
 
         <v-chip color="primary" variant="flat" size="large">
-          <v-icon start>mdi-account</v-icon>
+          <v-icon start color="white">mdi-account</v-icon>
           {{ user?.name || '' }} ({{ user?.role }})
         </v-chip>
       </div>
@@ -97,7 +97,7 @@
               <p class="text-subtitle-1 text-grey-darken-1 mb-1">{{ t('dashboard.totalProducts', 'Total Products') }}</p>
               <h2 class="text-h3 font-weight-bold">{{ products.length }}</h2>
             </div>
-            <v-avatar color="primary-lighten-4" size="64" class="ml-4 flex-shrink-0">
+            <v-avatar color="white" size="64" class="ml-4 flex-shrink-0 avatar-bg">
               <v-icon color="primary" size="36">mdi-package-variant-closed</v-icon>
             </v-avatar>
           </div>
@@ -111,7 +111,7 @@
               <p class="text-subtitle-1 text-grey-darken-1 mb-1">{{ t('dashboard.totalRawMaterials', 'Raw Materials Types') }}</p>
               <h2 class="text-h3 font-weight-bold">{{ rawMaterials.length }}</h2>
             </div>
-            <v-avatar color="success-lighten-4" size="64" class="ml-4 flex-shrink-0">
+            <v-avatar color="white" size="64" class="ml-4 flex-shrink-0 avatar-bg">
               <v-icon color="success" size="36">mdi-leaf</v-icon>
             </v-avatar>
           </div>
@@ -125,7 +125,7 @@
               <p class="text-subtitle-1 text-grey-darken-1 mb-1">{{ t('dashboard.lowStock', 'Low Stock Items') }}</p>
               <h2 class="text-h3 font-weight-bold text-warning">{{ lowStockCount }}</h2>
             </div>
-            <v-avatar color="warning-lighten-4" size="64" class="ml-4 flex-shrink-0">
+            <v-avatar color="white" size="64" class="ml-4 flex-shrink-0 avatar-bg">
               <v-icon color="warning" size="36">mdi-alert</v-icon>
             </v-avatar>
           </div>
@@ -272,12 +272,20 @@ onMounted(async () => {
 
 <style scoped>
 .border-l-primary {
-  border-left-color: #1976D2 !important;
+  border-left-color: var(--v-theme-primary) !important;
 }
 .border-l-success {
-  border-left-color: #4CAF50 !important;
+  border-left-color: var(--v-theme-success, #4CAF50) !important;
 }
 .border-l-warning {
-  border-left-color: #FFC107 !important;
+  border-left-color: var(--v-theme-warning, #FFC107) !important;
+}
+
+.avatar-bg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 </style>

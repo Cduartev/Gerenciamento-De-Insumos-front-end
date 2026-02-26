@@ -7,7 +7,6 @@
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
-       <img src="/Logotipo_Vale.svg" alt="Vale Logo" class="app-logo mr-3" />
       <v-btn icon @click="toggleTheme" class="mr-2">
         <v-icon>{{ theme.global.current.value.dark ? 'mdi-weather-sunny' : 'mdi-weather-night' }}</v-icon>
       </v-btn>
@@ -51,6 +50,9 @@
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" :rail="false">
+      <div class="drawer-logo d-flex align-center justify-center">
+        <img src="/Logotipo_Vale.svg" alt="Vale Logo" class="drawer-logo-img" />
+      </div>
       <v-list nav density="default">
         <v-list-item
           prepend-icon="mdi-view-dashboard"
@@ -117,15 +119,43 @@ watch(currentLocale, (newLocale) => {
 
 <style scoped>
 .app-logo{
-  height:32px;
+  height:40px;
   width:auto;
   display:block;
+  margin-right: 12px;
+  transition: transform .15s ease;
 }
 
 /* Improve logo contrast on dark theme by adding a subtle white backdrop */
 :deep(.v-theme--dark) .app-logo{
   background: #ffffff;
-  padding: 4px 6px;
-  border-radius: 4px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+:deep(.v-theme--light) .app-logo{
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.06));
+}
+
+@media (max-width: 600px) {
+  .app-logo{
+    height:32px;
+    margin-right:8px;
+  }
+}
+
+.drawer-logo{
+  padding: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  background: transparent;
+}
+
+.drawer-logo-img{
+  height:56px;
+  width:auto;
+  display:block;
+  border-radius:6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 </style>
